@@ -21,12 +21,30 @@ import { PreciosView } from './components/PreciosView';
 import { PerfilEmpresaView } from './components/PerfilEmpresaView';
 import { BrainAIView } from './components/BrainAIView';
 import { CMSSectionEditor } from './components/CMSSectionEditor';
+import { LoginView } from './components/LoginView';
 import { NewLeadModal } from './components/Modals/NewLeadModal';
 import { ManageLeadModal } from './components/Modals/ManageLeadModal';
 import { NewScoutModal } from './components/Modals/NewScoutModal';
 import { PayCommissionModal } from './components/Modals/PayCommissionModal';
 
+export interface UserProfile {
+  name: string;
+  email: string;
+  role: string;
+}
+
 export default function App() {
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => {
+    const saved = localStorage.getItem('pay4myjunk_auth_user');
+    return saved
+      ? JSON.parse(saved)
+      : {
+          name: 'Douglas Villalobos',
+          email: 'DouglasVillalobos4@gmail.com',
+          role: 'Superuser',
+        };
+  });
+
   const [currentScreen, setCurrentScreen] = useState<ScreenId>('cotizaciones-and-leads');
   const [lang, setLang] = useState<'es' | 'en'>('es');
   const [searchTerm, setSearchTerm] = useState('');
@@ -181,6 +199,22 @@ export default function App() {
     }));
   };
 
+  const handleLogin = (user: UserProfile) => {
+    setCurrentUser(user);
+    localStorage.setItem('pay4myjunk_auth_user', JSON.stringify(user));
+    showToast(`Bienvenido al sistema, ${user.name} (${user.role}).`);
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem('pay4myjunk_auth_user');
+    showToast('Sesión cerrada correctamente.');
+  };
+
+  if (!currentUser) {
+    return <LoginView onLogin={handleLogin} lang={lang} onLangChange={setLang} />;
+  }
+
   const isCMSSubScreen = [
     'header-and-logo',
     'beneficios',
@@ -199,13 +233,19 @@ export default function App() {
         onNavigate={setCurrentScreen}
         lang={lang}
         onLangChange={setLang}
-        onLogout={() => showToast('Sesión de Admin Dispatch finalizada.')}
+        onLogout={handleLogout}
       />
 
       {/* Main Content Area */}
       <div className="pl-72 flex-1 flex flex-col min-w-0">
         {/* Top Header Bar */}
-        <Header searchTerm={searchTerm} onSearchChange={setSearchTerm} lang={lang} />
+        <Header
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          lang={lang}
+          currentUser={currentUser}
+          onLogout={handleLogout}
+        />
 
         {/* Dynamic Screen Container */}
         <main className="w-full pt-16 px-6 bg-[#f8f9ff] min-h-screen flex-1">

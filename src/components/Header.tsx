@@ -4,11 +4,23 @@ interface HeaderProps {
   searchTerm: string;
   onSearchChange: (value: string) => void;
   lang: 'es' | 'en';
+  currentUser?: { name: string; email: string; role: string } | null;
+  onLogout?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ searchTerm, onSearchChange, lang }) => {
+export const Header: React.FC<HeaderProps> = ({
+  searchTerm,
+  onSearchChange,
+  lang,
+  currentUser,
+  onLogout,
+}) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+
+  const userName = currentUser?.name || 'Admin Dispatch';
+  const userRole = currentUser?.role || 'Superuser';
+  const userEmail = currentUser?.email || 'DouglasVillalobos4@gmail.com';
 
   return (
     <header className="fixed top-0 left-72 right-0 h-16 bg-white/95 backdrop-blur-xl border-b border-[#e5eeff] shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-6">
@@ -119,17 +131,17 @@ export const Header: React.FC<HeaderProps> = ({ searchTerm, onSearchChange, lang
             </div>
             <div className="hidden md:block">
               <span className="text-xs font-bold text-[#0b1c30] block leading-tight">
-                Admin Dispatch
+                {userName}
               </span>
-              <span className="text-[11px] text-[#565e74] block">Superuser</span>
+              <span className="text-[11px] text-[#565e74] block">{userRole}</span>
             </div>
           </button>
 
           {showUserMenu && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-[#e5eeff] p-2 z-50 text-xs">
+            <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-[#e5eeff] p-2 z-50 text-xs">
               <div className="px-2 py-1.5 font-semibold text-[#0b1c30] border-b border-[#e5eeff]">
-                Douglas Villalobos
-                <div className="text-[10px] text-[#565e74] font-mono">admin@radar.com</div>
+                {userName}
+                <div className="text-[10px] text-[#565e74] font-mono truncate">{userEmail}</div>
               </div>
               <button
                 type="button"
@@ -145,7 +157,11 @@ export const Header: React.FC<HeaderProps> = ({ searchTerm, onSearchChange, lang
               </button>
               <button
                 type="button"
-                className="w-full text-left px-2 py-1.5 rounded text-red-600 hover:bg-red-50"
+                onClick={() => {
+                  setShowUserMenu(false);
+                  onLogout?.();
+                }}
+                className="w-full text-left px-2 py-1.5 rounded text-red-600 hover:bg-red-50 font-semibold"
               >
                 {lang === 'es' ? 'Cerrar Sesión' : 'Sign Out'}
               </button>
