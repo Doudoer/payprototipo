@@ -1,0 +1,6 @@
+{
+  "name": "PAY4MYJUNK - Ops Console V2.0",
+  "description": "Consola de operaciones, despacho logístico de grúas, cotizaciones instantáneas de vehículos chatarra, liquidación de comisiones a scouts y editor de CMS en tiempo real.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
