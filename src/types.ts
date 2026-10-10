@@ -4,6 +4,7 @@ export type ScreenId =
   | 'estrategia-de-precios'
   | 'perfil-de-empresa'
   | 'brain-ai-engine'
+  | 'scout-portal'
   | 'hero-section'
   | 'header-and-logo'
   | 'beneficios'

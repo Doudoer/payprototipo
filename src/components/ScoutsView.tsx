@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Scout, DispatchedVehicle } from '../types';
+import { Scout, DispatchedVehicle, ScreenId } from '../types';
 
 interface ScoutsViewProps {
   scouts: Scout[];
@@ -8,6 +8,7 @@ interface ScoutsViewProps {
   onOpenPaymentModal: (scout: Scout) => void;
   onApproveDispatch: (dispatchId: string) => void;
   onBatchSettle: () => void;
+  onNavigate?: (screen: ScreenId) => void;
   lang: 'es' | 'en';
 }
 
@@ -18,6 +19,7 @@ export const ScoutsView: React.FC<ScoutsViewProps> = ({
   onOpenPaymentModal,
   onApproveDispatch,
   onBatchSettle,
+  onNavigate,
   lang,
 }) => {
   const [filterQuery, setFilterQuery] = useState('');
@@ -80,6 +82,17 @@ export const ScoutsView: React.FC<ScoutsViewProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+            {onNavigate && (
+              <button
+                type="button"
+                onClick={() => onNavigate('scout-portal')}
+                className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-lg bg-[#ba1a1a]/80 hover:bg-[#ba1a1a] text-white text-xs font-bold transition-all shadow-sm"
+                title="Abrir cotizador de Facebook Marketplace para Scouts"
+              >
+                <span className="material-symbols-outlined text-[18px]">badge</span>
+                <span>{lang === 'es' ? 'Abrir Portal Scout FB' : 'Open FB Scout Portal'}</span>
+              </button>
+            )}
             <button
               type="button"
               onClick={() => setShowTariffModal(true)}

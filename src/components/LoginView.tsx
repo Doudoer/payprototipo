@@ -74,22 +74,13 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, lang, onLangChang
               EN
             </button>
           </div>
-
-          <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#7ffc97]">
-            <span className="w-2 h-2 rounded-full bg-[#006b2c] animate-pulse"></span>
-            <span>RALEIGH-DURHAM GATEWAY</span>
-          </div>
         </div>
       </header>
 
       {/* Main Login Card Container */}
       <main className="relative z-10 flex-1 flex items-center justify-center px-4 py-8">
         <div className="w-full max-w-md bg-[#213145]/90 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl p-6 sm:p-8 space-y-6">
-          <div className="text-center space-y-1.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#7ffc97]/20 text-[#7ffc97] font-mono text-[11px] font-bold uppercase mb-1">
-              <span className="material-symbols-outlined text-[14px]">lock</span>
-              <span>Acceso de Operaciones</span>
-            </div>
+          <div className="text-center space-y-1">
             <h1 className="text-2xl font-bold text-white tracking-tight">
               {lang === 'es' ? 'Iniciar Sesión' : 'Sign In'}
             </h1>
@@ -106,11 +97,11 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, lang, onLangChang
             {/* Email */}
             <div>
               <label className="block text-white/80 font-semibold mb-1" htmlFor="login-email">
-                {lang === 'es' ? 'Correo Corporativo o ID de Despacho' : 'Corporate Email or Dispatch ID'}
+                {lang === 'es' ? 'Correo Electrónico' : 'Email'}
               </label>
               <div className="relative flex items-center">
                 <span className="material-symbols-outlined absolute left-3 text-[18px] text-[#7ffc97]">
-                  badge
+                  mail
                 </span>
                 <input
                   id="login-email"
@@ -118,7 +109,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, lang, onLangChang
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@radar.com"
+                  placeholder="usuario@ejemplo.com"
                   className="w-full pl-9 pr-3 py-2.5 bg-[#0b1c30] rounded-xl text-xs font-mono text-white outline-none border border-white/10 focus:border-[#006b2c] focus:ring-1 focus:ring-[#006b2c] transition-all"
                 />
               </div>

@@ -21,6 +21,7 @@ import { PreciosView } from './components/PreciosView';
 import { PerfilEmpresaView } from './components/PerfilEmpresaView';
 import { BrainAIView } from './components/BrainAIView';
 import { CMSSectionEditor } from './components/CMSSectionEditor';
+import { ScoutPortalView } from './components/ScoutPortalView';
 import { LoginView } from './components/LoginView';
 import { NewLeadModal } from './components/Modals/NewLeadModal';
 import { ManageLeadModal } from './components/Modals/ManageLeadModal';
@@ -276,6 +277,16 @@ export default function App() {
               onOpenPaymentModal={(scout) => setPayingScout(scout)}
               onApproveDispatch={handleApproveDispatch}
               onBatchSettle={handleBatchSettle}
+              onNavigate={setCurrentScreen}
+              lang={lang}
+            />
+          )}
+
+          {currentScreen === 'scout-portal' && (
+            <ScoutPortalView
+              onRegisterLead={handleAddLead}
+              onBackToConsole={() => setCurrentScreen('cotizaciones-and-leads')}
+              userName={currentUser?.name || 'Douglas Villalobos'}
               lang={lang}
             />
           )}

@@ -117,6 +117,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </span>
           </button>
 
+          {/* Portal Scout FB (Cotizador de Marketplace) */}
+          <button
+            type="button"
+            onClick={() => onNavigate('scout-portal')}
+            className={`flex items-center gap-2.5 w-full text-left px-3.5 py-2.5 rounded-lg transition-all ${
+              currentScreen === 'scout-portal'
+                ? 'bg-[#00873a] text-white font-semibold shadow-sm'
+                : 'text-[#eaf1ff]/80 hover:bg-[#0b1c30]/40 hover:text-white'
+            }`}
+          >
+            <span className="material-symbols-outlined text-[18px]">badge</span>
+            <span className="text-sm font-medium">
+              {lang === 'es' ? 'Portal Scout FB' : 'FB Scout Portal'}
+            </span>
+          </button>
+
           {/* Estrategia de Precios */}
           <button
             type="button"
